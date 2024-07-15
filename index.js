@@ -1,6 +1,7 @@
 import { ApolloServer, gql } from "apollo-server";
+import { v1 as uuid } from "uuid";
 
-const person = [
+const persons = [
   {
     age: 100,
     name: "juan",
@@ -40,18 +41,36 @@ const typeDefinitions = gql`
 
   type Query {
     personCount: Int!
-    allPerson: [Person]!
+    allPersons: [Person]!
     findPerson(name: String!): Person
   }
+  type Mutation {
+    addPerson(
+      name: String!
+      phone: String
+      street: String!
+      city: String!
+    ): Person
+  }
 `;
-
+//Endopoitn GET
 const resolvers = {
   Query: {
-    personCount: () => person.length,
-    allPerson: () => person,
+    personCount: () => persons.length,
+    allPersons: () => persons,
     findPerson: (root, args) => {
       const { name } = args;
-      return person.find((person) => person.name === name);
+      return persons.find((person) => person.name === name);
+    },
+  },
+  //Endpoint Post,Put,Delete
+  Mutation: {
+    addPerson: (root, args) => {
+      //Se puede hacer de las dos formas ya que el ...args toma todos los datos
+      // const {name,phone,street,city} = args
+      const person = { ...args, id: uuid() };
+      persons.push(person); //update datebase with newPerson
+      return person;
     },
   },
   Person: {
