@@ -87,7 +87,7 @@ const resolvers = {
   //     check: () => "OK",
   //   },
 };
-
+//Conexión con la base de datos,en este caso apollo
 const server = new ApolloServer({
   typeDefs: typeDefinitions,
   resolvers,
