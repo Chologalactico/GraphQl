@@ -1,6 +1,7 @@
 import { ApolloServer, gql } from "apollo-server";
 import { v1 as uuid } from "uuid";
 
+//datos de diferentes personas
 const persons = [
   {
     age: 100,
@@ -26,7 +27,7 @@ const persons = [
     id: "sdn-fbks-HJKL-bvjs-asdfr",
   },
 ];
-
+//Definición de variables  
 const typeDefinitions = gql`
   type Address {
     street: String!
